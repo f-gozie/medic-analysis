@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title> Medic | Analysis Data</title>
+		<style>
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+			}
+
+			td, th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 8px;
+			}
+
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+		<ul>
+			<li><a href="{% url 'index' %}">Home</a></li>
+			{% if user.is_authenticated %}
+				<li><a href="{% url 'user_logout' %}">Logout</a></li>
+				<li><a href="{% url 'add_medical_info' %}">Add Medical Info</a></li>
+				<li><a href="{% url 'analysis_data' %}">Analysis Data</a></li>
+
+			{% else %}
+				<li><a href="{% url 'signup' %}">Register</a></li>
+				<li><a href="{% url 'user_login' %}">Login</a></li>
+			{% endif %}
+		</ul>
+		</div>
+		<table>
+			<tr>
+				<th>User</th>
+				<th>Blood Group</th>
+				<th>Height</th>
+				<th>Weight</th>
+				<th>Gender</th>
+				<th>Ailments</th>
+			</tr>
+			{% for analysis in analysis_info %}
+				<tr>
+					<td>{{analysis.user.username}}</td>
+					<td>{{analysis.blood_group}}</td>
+					<td>{{analysis.height}}</td>
+					<td>{{analysis.weight}}</td>
+					<td>{{analysis.gender}}</td>
+					<td>
+						{% for ail in analysis.ailments.all %}
+							{{ ail }}, 
+						{% endfor %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<p>Percentage of users with HIV: {{ hiv_total }}%</p>
+		<p>Percentage of users with Ebola: {{ ebola_total }}%</p>
+		<p>Percentage of users with Cough: {{ cough_total }}%</p>
+		<p>Percentage of users with Tuberculosis: {{ tuberculosis_total }}%</p>
+		<p>Percentage of users with Malaria: {{ malaria_total }}%</p>
+	</body>
+</html>

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Add Info
+{% endblock %}
+
+{% block body_block %}
+	<h1>Yooo</h1>
+	{% if registered %}
+		Medic says: <strong>Thank you for filling in your medical info</strong>
+		<a href="{% url 'index' %}">Return to homepage</a>
+	{% else %}
+		Medic says: <b>Please fill in your medical information below</b>
+		<form id="analysis_form" method="post" action="{% url 'add_medical_info' %}">
+			{% csrf_token %}
+			<p>
+				<label for="id_blood_group">Blood Group: </label>
+				{% if analysis_form.blood_group.errors %}
+					<p class="errors">{{ analysis_form.blood_group.errors.as_text }}</p>
+				{% endif %}
+				{{ analysis_form.blood_group }}
+			</p>
+			<p>
+				<label for="id_height">Height: </label>
+				{% if analysis_form.height.errors %}
+					<p class="errors">{{ analysis_form.height.errors.as_text }}</p>
+				{% endif %}
+				{{ analysis_form.height }}
+			</p>
+			<p>
+				<label for="id_weight">Weight: </label>
+				{% if analysis_form.weight.errors %}
+					<p class="errors">{{ analysis_form.weight.errors.as_text }}</p>
+				{% endif %}
+				{{ analysis_form.weight }}
+			</p>
+			<p>
+				<label for="id_gender">Gender: </label>
+				{% if analysis_form.gender.errors %}
+					<p class="errors">{{ analysis_form.gender.errors.as_text }}</p>
+				{% endif %}
+				{{ analysis_form.gender }}
+			</p>
+			<p>
+				<label for="id_ailments">Ailments: </label>
+				{% if analysis_form.ailments.errors %}
+					<p class="errors">{{ analysis_form.ailments.errors.as_text }}</p>
+				{% endif %}
+				{{ analysis_form.ailments }}
+			</p>
+			<p class="submit"><input type="submit" name="submit" value="submit"></p>
+		</form>
+	{% endif %}
+{% endblock %}

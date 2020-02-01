@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Register
+{% endblock %}
+
+{% block body_block %}
+	<h1>Yo</h1>
+	{% if registered %}
+		Medic says: <strong>Thank you for registering!</strong><br>
+		<a href="{% url 'index' %}">Return to homepage</a>
+	{% else %}
+		Medic says: <strong>Register here!</strong><br>
+		<form id="user_form" method="post" action="{% url 'signup' %}">
+			{% csrf_token %}
+
+			<!-- Display each form -->
+			{{ user_form.as_p }}
+			{{ profile_form.as_p }}
+
+			<!-- Provide button to click the submit form -->
+			<input type="submit" name="submit" value="Register"/>
+		</form>
+	{% endif %}
+{% endblock %}

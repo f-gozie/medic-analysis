@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title>Charts</title>
+	<div id="container"></div>
+	<script type="text/javascript" src="{% static 'js/highcharts.src.js' %}"></script>
+	<script>
+		Highcharts.chart('container', {{ chart|safe }});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

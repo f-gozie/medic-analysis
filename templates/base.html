@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+	<title> Medic | {% block title_block %}{% endblock %}</title>
+</head>
+
+<body>
+	<div>
+		<ul>
+			<li><a href="{% url 'index' %}">Home</a></li>
+			{% if user.is_authenticated %}
+				<li><a href="{% url 'user_logout' %}">Logout</a></li>
+				<li><a href="{% url 'add_medical_info' %}">Add Medical Info</a></li>
+				<li><a href="{% url 'analysis_data' %}">Analysis Data</a></li>
+				<li><a href="{% url 'high_class_chart' %}">Analysis Chart</a></li>
+			{% else %}
+				<li><a href="{% url 'signup' %}">Register</a></li>
+				<li><a href="{% url 'user_login' %}">Login</a></li>
+			{% endif %}
+		</ul>
+	</div>
+	<hr>
+	{% block body_block %}
+	<div id="sidebar">
+		{% block sidebar %}{% endblock %}
+	</div>
+
+	<div id="content">
+		{% block content %}{% endblock %}
+		{% block main_content %}{% endblock %}
+	</div>
+	{% endblock %}
+</body>
+</html>
